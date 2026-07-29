@@ -1,0 +1,51 @@
+{
+  "name": "milton-writer-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:push": "prisma db push",
+    "seed": "node --import tsx/esm prisma/seed.ts"
+  },
+  "dependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
+    "@prisma/client": "^5.15.0",
+    "@react-three/drei": "^9.106.0",
+    "@react-three/fiber": "^8.16.8",
+    "@stripe/stripe-js": "^3.5.0",
+    "@tiptap/extension-image": "^2.4.0",
+    "@tiptap/react": "^2.4.0",
+    "@tiptap/starter-kit": "^2.4.0",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "emoji-mart": "^5.6.0",
+    "framer-motion": "^11.2.10",
+    "gsap": "^3.12.5",
+    "lenis": "^1.0.45",
+    "lucide-react": "^0.395.0",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "resend": "^3.2.0",
+    "stripe": "^15.11.0",
+    "tailwind-merge": "^2.3.0",
+    "three": "^0.165.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.165.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prisma": "^5.15.0",
+    "tailwindcss": "^3.4.4",
+    "tsx": "^4.15.0",
+    "typescript": "^5.4.5"
+  }
+}

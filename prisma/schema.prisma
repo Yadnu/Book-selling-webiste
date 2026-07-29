@@ -1,0 +1,102 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  id              String      @id @default(cuid())
+  slug            String      @unique
+  title           String
+  subtitle        String?
+  coverImage      String
+  synopsis        String
+  excerpt         String
+  priceInCents    Int
+  isbn            String
+  pageCount       Int
+  publicationDate DateTime
+  format          String      // Paperback, Hardcover, Ebook
+  stockQuantity   Int         @default(0)
+  isForSale       Boolean     @default(true)
+  isFeatured      Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  orderItems      OrderItem[]
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     String   // HTML from Tiptap editor
+  excerpt     String?
+  coverImage  String?
+  readingTime String?
+  tags        String   @default("essay") // Comma-separated tags
+  status      String   @default("published") // draft, scheduled, published
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  url         String   // YouTube/Vimeo embed or direct MP4 URL
+  posterFrame String?
+  createdAt   DateTime @default(now())
+}
+
+model Photo {
+  id          String   @id @default(cuid())
+  title       String?
+  caption     String?
+  url         String
+  category    String   @default("gallery") // gallery, tide-logs, research
+  createdAt   DateTime @default(now())
+}
+
+model Order {
+  id               String      @id @default(cuid())
+  stripeSessionId  String      @unique
+  customerName     String
+  customerEmail    String
+  shippingAddress  String
+  personalization  String?
+  totalAmountCents Int
+  status           String      @default("pending") // pending, paid, fulfilled, refunded, failed
+  trackingNumber   String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  items            OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  bookId    String
+  quantity  Int
+  price     Int
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  book      Book     @relation(fields: [bookId], references: [id])
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+}
